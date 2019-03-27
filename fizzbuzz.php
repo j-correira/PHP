@@ -1,8 +1,8 @@
 <!--
-(-) Display numbers 1 through 100 
-(-) display fizz if a multiple of 2
-(-) buzz if a multiple of 3
-(-) fizz buzz if the number is both a multiple of 2 & 3.
+(x) Display numbers 1 through 100 
+(x) display fizz if a multiple of 2
+(x) buzz if a multiple of 3
+(x) fizz buzz if the number is both a multiple of 2 & 3.
 -->
 
 <?php
