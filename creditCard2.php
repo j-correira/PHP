@@ -3,7 +3,7 @@
 /*
     (-) calculate the number of months required to pay off the amount owed along with the total amount spent.
         Be sure to also include a month by month overview of how the amount owed goes down.
-
+NEWEST
   */
 
     $errorMsg="";
@@ -55,6 +55,13 @@
             border-right: dotted 8px gray;
         }
         
+        .formBox
+        {
+            margin-left: 10px;
+            margin-bottom: 8px;
+            width: 65px;
+        }
+        
     </style>
     
     
@@ -63,15 +70,13 @@
 <body>
     <h1 style="font-size:50px;">Credit Card Interest Calculator</h1>
     <br>
-    <br>
     
 <form method="post">
-    Balance <input type="text" id="beginBalance" name="beginBalance" value="<?php echo $beginBalance;?>">
+    Balance <input type="text" id="beginBalance" class="formBox" name="beginBalance" value="<?php echo $beginBalance;?>">
     <br />
-    Interest Rate <input type="text" id="intRate" name="intRate" value="<?php echo $interest;?>">
+    Interest Rate <input type="text" id="intRate" class="formBox" name="intRate" value="<?php echo $interest;?>">
     <br />
-    Monthly Payment <input type="text" id="mnthPayment" name="mnthPayment" value="<?php echo $payment;?>">
-    <br>
+    Monthly Payment <input type="text" id="mnthPayment" class="formBox" name="mnthPayment" value="<?php echo $payment;?>">
     <br>
 
     <input type="submit" id="submit" name="submit" onclick="">
@@ -94,6 +99,8 @@
     <tr>
         <?php
             $balance = $beginBalance;
+            $totalPaid = $balance;
+
             $month = 0;
             while ($balance > 0)
             {
@@ -101,7 +108,7 @@
                 
                 $interestPaid = $balance * $interest / 100 / 12;
                 $balance = $balance - $payment + $interestPaid;
-                $totalPaid = $beginBalance + $interestPaid;
+                $totalPaid = $totalPaid + $interestPaid;
                 
                 echo "<tr>";
                     //month column
@@ -114,11 +121,20 @@
                     echo "$" . number_format($interestPaid, 2);
                     echo "</td>";
                     
-                    //owed column
-                    echo "<td>";
-                    echo "$" . number_format($balance, 2);
-                    echo "</td>";
-                    
+                    if ($balance <= 0)
+                    {
+                        //owed column
+                        echo "<td>";
+                        echo "-------";
+                        echo "</td>";                        
+                    }
+                    else 
+                    {
+                        //owed column
+                        echo "<td>";
+                        echo "$" . number_format($balance, 2);
+                        echo "</td>";
+                    }
 
                 echo "</tr>";
             } 
@@ -129,11 +145,9 @@
 </table>
     
     <br>
-    <br>
-    <h3>Total amount paid (Interest + Balance) : 
-        <br>
+    <h5>Total amount paid (Interest + Balance) : 
         <?php echo "$" . number_format($totalPaid, 2); ?>
-    </h3>
+    </h5>
     
 </body>
 </html>
