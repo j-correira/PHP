@@ -26,9 +26,54 @@ Read, Update and Delete.
             border-right: dotted 8px gray;
         }
         
+        #scrollDownBtn
+        {
+            position:fixed;
+            bottom: 20px;
+            right: 10px;
+            border-radius: 0px 0px 10px 10px;
+        }
+        
+        #scrollUpBtn
+        {
+            position:fixed;
+            margin-left:100px;    
+            right: 10px;
+            bottom: 54px;
+            border-radius: 10px 10px 0px 0px;
+            width: 101px;
+        }
+        
+        #scrollBtns
+        {
+            postion:fixed;
+            z-index: 2;
+        }
+        
         
   </style>
+  
+  <script>
+        function scrollDown()
+        {
+        window.scrollBy(0, 3500);
+        }
+        
+        function scrollUp()
+        {
+        window.scrollTo(0, 0);
+        }
+</script>
     </head>
+    
+    
+    
+<div id="scrollBtns" class="btn-group">
+  <button type="button" id="scrollDownBtn" class="btn" onclick="scrollDown()">Scroll Down</button>
+  <button type="button" id="scrollUpBtn" class="btn" onclick="scrollUp()">Scroll Up</button>
+</div>
+    
+    
     <body>
         <?php
         //include outside files
@@ -62,7 +107,7 @@ Read, Update and Delete.
             </ul>
         </div>
     </nav>
-        
+            
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -70,8 +115,7 @@ Read, Update and Delete.
                 </tr>
             </thead>
             <tbody>  
-                
-            
+                          
             <?php foreach ($results as $row) { ?>
                 <tr>
                     <td><?php echo $row['corp']; ?></td>
@@ -79,10 +123,6 @@ Read, Update and Delete.
             <?php } ?>
             
             </tbody>
-        </table>
-        
-        
-        
-        
+        </table>             
     </body>
 </html>

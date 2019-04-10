@@ -26,8 +26,45 @@ Read, Update and Delete.
             border-right: dotted 8px gray;
         }
         
+                #scrollDownBtn
+        {
+            position:fixed;
+            bottom: 20px;
+            right: 10px;
+            border-radius: 0px 0px 10px 10px;
+        }
+        
+        #scrollUpBtn
+        {
+            position:fixed;
+            margin-left:100px;    
+            right: 10px;
+            bottom: 54px;
+            border-radius: 10px 10px 0px 0px;
+            width: 101px;
+        }
+        
+        #scrollBtns
+        {
+            postion:fixed;
+            z-index: 2;
+        }
+        
         
   </style>
+  
+<script>
+        function scrollDown()
+        {
+        window.scrollBy(0, 5000);
+        }
+        
+        function scrollUp()
+        {
+        window.scrollTo(0, 0);
+        }
+</script>
+
     </head>
     <body>
         <?php
@@ -47,13 +84,13 @@ Read, Update and Delete.
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         
-        
-        
         ?>
         
-        
-        
-        
+<div id="scrollBtns" class="btn-group">
+  <button type="button" id="scrollDownBtn" class="btn" onclick="scrollDown()">Scroll Down</button>
+  <button type="button" id="scrollUpBtn" class="btn" onclick="scrollUp()">Scroll Up</button>
+</div>
+               
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -79,24 +116,17 @@ Read, Update and Delete.
                 </tr>
             </thead>
             <tbody>  
-                
-            
+                           
             <?php foreach ($results as $row) { ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['corp']; ?></td>
                     <td><a class="btn btn-warning" href="delete.php?id=<?php echo $row['id']; ?>">Delete</a></td>
-                    <td><a class="btn btn-primary" href="update.php?id=<?php echo $row['id']; ?>">Update</a></td>
-                    
-                    
+                    <td><a class="btn btn-primary" href="update.php?id=<?php echo $row['id']; ?>">Update</a></td>            
                 </tr>
             <?php } ?>
             
             </tbody>
-        </table>
-        
-        
-        
-        
+        </table>      
     </body>
 </html>

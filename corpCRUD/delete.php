@@ -45,11 +45,12 @@ Read, Update and Delete.
         
         $binds = array(
             ":id" => $id
-        )
+        );
         
                 
         $isDeleted = false;
-        if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+        if ($stmt->execute($binds) && $stmt->rowCount() > 0)
+        {
             $isDeleted = true;
         } 
         
@@ -69,20 +70,16 @@ Read, Update and Delete.
             </ul>
         </div>
     </nav>
-        
-        
+               
         <h1> Record <?php echo $id; ?>  
             <?php if ( !$isDeleted ): ?>Not<?php endif; ?> 
             Deleted
         </h1>
         
-        <a href="<?php echo filter_input(INPUT_SERVER, 'HTTP_REFERER'); ?>"> Go back </a>        
-        
-        
+        <br>
+        <br>
+        <a href="<?php echo filter_input(INPUT_SERVER, 'HTTP_REFERER'); ?>" class="btn btn-danger" role="button">Go back to View Page</a>
 
-        
-        
-        
-        
+ 
     </body>
 </html>

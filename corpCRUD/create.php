@@ -73,7 +73,7 @@
             );
 
             if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
-                $results = 'Data Added';
+                $results = "<h2 style='color:green; text-decoration: underline; margin-bottom: 20px;'>Data Successfully Added</h2>";
             }
         }        
         ?>
@@ -111,10 +111,7 @@
 
             <input type="submit" class="btn btn-success" id="submitBtn" value="Submit" />
         </form>
-        
-        
-
-        
+  
     </body>
 </html>
 
