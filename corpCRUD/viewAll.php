@@ -22,8 +22,6 @@ Read, Update and Delete.
             margin:auto;
             width: 80%;
             padding:45px;
-            border-left: dotted 8px gray;
-            border-right: dotted 8px gray;
         }
         
         #scrollDownBtn
@@ -32,6 +30,7 @@ Read, Update and Delete.
             bottom: 20px;
             right: 10px;
             border-radius: 0px 0px 10px 10px;
+            
         }
         
         #scrollUpBtn
@@ -41,7 +40,7 @@ Read, Update and Delete.
             right: 10px;
             bottom: 54px;
             border-radius: 10px 10px 0px 0px;
-            width: 101px;
+            width: 134px;
         }
         
         #scrollBtns
@@ -50,7 +49,7 @@ Read, Update and Delete.
             z-index: 2;
         }
         
-        
+
   </style>
   
   <script>
@@ -69,8 +68,8 @@ Read, Update and Delete.
     
     
 <div id="scrollBtns" class="btn-group">
-  <button type="button" id="scrollDownBtn" class="btn" onclick="scrollDown()">Scroll Down</button>
-  <button type="button" id="scrollUpBtn" class="btn" onclick="scrollUp()">Scroll Up</button>
+  <button type="button" id="scrollDownBtn" class="btn btn-info" onclick="scrollDown()">Scroll Down &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+  <button type="button" id="scrollUpBtn" class="btn btn-info" onclick="scrollUp()">Scroll Up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-up"></span></button>
 </div>
     
     

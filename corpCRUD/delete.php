@@ -22,8 +22,6 @@ Read, Update and Delete.
             margin:auto;
             width: 80%;
             padding:45px;
-            border-left: dotted 8px gray;
-            border-right: dotted 8px gray;
         }
         
         
