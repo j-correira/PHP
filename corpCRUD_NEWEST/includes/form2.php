@@ -65,20 +65,20 @@ old drop down list
   </select>
 -->
 
-<form action="#" method="get">
+<form action="orderedTEST.php" method="get">
     <div class="form-group">
-      <select class="form-control" id="sort">
-        <option value="corp">corp</option>
-        <option value="incorp_dt">incorp_dt</option>
-        <option value="email">email</option>
-        <option value="zipcode">zipcode</option>
-        <option value="owner">owner</option>
-        <option value="phone">phone</option>
+      <select name="dropDownValue" class="form-control" id="sort" style="width:163px;">
+        <option value="corp">Corporation Name</option>
+        <option value="incorp_dt">Incorporation Date</option>
+        <option value="email">Email</option>
+        <option value="zipcode">Zipcode</option>
+        <option value="owner">Owner</option>
+        <option value="phone">Phone</option>
       </select>
 
   &nbsp;
-  <input type="radio" name="ascending" value="ascending" checked> ascending
-  <input type="radio" name="descending" value="descending"> descending
+  <input type="radio" name="radioBTN" value="ASC" checked> Ascending
+  <input type="radio" name="radioBTN" value="DESC"> Descending
 
   <input type="hidden" name="action" value="OrderBy">
   &nbsp;&nbsp;<input type="submit" class="btn btn-success" value="Sort">

@@ -60,17 +60,20 @@
 <h2>Testing Search</h2>
 <hr>
 <br>
-<br>
 
         <?php
         //include outside files
         include './dbconnect.php';
         include './functions.php';
+
+        //testing column name + search word
+        //$column = 'corp';
+        //$searchWord = 'test';
         
-        //define column name + search word
-        $column = 'corp';
-        $searchWord = 'test';
-        
+        //receive variables from other page
+        $searchWord = $_GET["searchValue"];
+        $column = $_GET["dropDownValue"];
+
         //db connection
         $db = getDatabase();
 
@@ -83,7 +86,7 @@
         $search = '%'.$searchWord.'%';
         
         $binds = array(
-        ":search" => $search
+        ":search" => $search 
         );
 
         //execute SQL
@@ -93,12 +96,25 @@
         }
         ?>
 
+<h1>Word/Value being searched for: <u><?php echo $searchWord ?></u></h1>
+<?php        var_dump($searchWord); ?>
+<br>
+<h1>Column being searched for: <u><?php echo $column ?></u></h1>
+<?php        var_dump($column); ?>
+<br>
+<br>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID #</th>
+                    <th>ID</th>
                     <th>Corporation Name</th>
+                    <th>Incorporation Date</th>
+                    <th>Email</th>
+                    <th>Zipcode</th>
+                    <th>Owner</th>
+                    <th>Phone<th>
+                    
                 </tr>
             </thead>
             <tbody>  
@@ -107,6 +123,11 @@
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['corp']; ?></td>
+                    <td><?php echo $row['incorp_dt']; ?></td>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['zipcode']; ?></td>
+                    <td><?php echo $row['owner']; ?></td>
+                    <td><?php echo $row['phone']; ?></td>    
                 </tr>
             <?php } ?>
             

@@ -43,22 +43,26 @@
   <body>
 
 <h3>Search:</h3>
-<form action="#" method="get">
+<form action="searchTEST.php" method="get">
     <div class="form-group">
-      <select class="form-control" id="sort">
-        <option value="corp">corp</option>
-        <option value="incorp_dt">incorp_dt</option>
-        <option value="email">email</option>
-        <option value="zipcode">zipcode</option>
-        <option value="owner">owner</option>
-        <option value="phone">phone</option>
+      <select name="dropDownValue" class="form-control" id="sort" style="width:163px;">
+        <option value="corp">Corporation Name</option>
+        <option value="incorp_dt">Incorporation Date</option>
+        <option value="email">Email</option>
+        <option value="zipcode">Zipcode</option>
+        <option value="owner">Owner</option>
+        <option value="phone">Phone</option>
       </select>
   
-  &nbsp;&nbsp;<input name="searchValue" style="width:120px; display: inline;" class="form-control" type="search" placeholder="....Search...." />
+  &nbsp;&nbsp;
+  <input name="searchValue" type="search" placeholder="....Search...." class="form-control" style="width:120px; display: inline;" />
 
   
-  <input type="hidden" name="action" value="Search">
-  &nbsp;&nbsp;<input type="submit" class="btn btn-success" value="Search">
+  <input type="hidden" name="action" value="test">
+  
+  &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="viewSearch.php" name="submit" value="Search">
+  &nbsp;&nbsp;<input type="submit" class="btn btn-danger" name="submit" value="Reset">
+
 </fieldset>
 </form>
 <br>

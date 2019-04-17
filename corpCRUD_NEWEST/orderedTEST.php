@@ -67,8 +67,14 @@
         include_once './dbconnect.php';
         
         //define column name + search word
-        $column = 'corp';
-        $order = 'ASC';
+        //$column = 'corp';
+        //$order = 'ASC';
+        
+        //receive variables from other page
+        //$searchWord = $_GET["searchValue"];
+        $column = $_GET["dropDownValue"];
+        $order = $_GET["radioBTN"];
+        
         
         //db connection
         $db = getDatabase();
@@ -84,12 +90,24 @@
         }
         ?>
 
+<h1>Sorting by: <u><?php echo $column ?></u></h1>
+<?php        var_dump($column); ?>
+<br>
+<h1>Ordered by: <u><?php echo $order ?></u></h1>
+<?php        var_dump($order); ?>
+<br>
+<br>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID #</th>
+                    <th>ID</th>
                     <th>Corporation Name</th>
+                    <th>Incorporation Date</th>
+                    <th>Email</th>
+                    <th>Zipcode</th>
+                    <th>Owner</th>
+                    <th>Phone<th>
                 </tr>
             </thead>
             <tbody>  
@@ -98,6 +116,11 @@
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['corp']; ?></td>
+                    <td><?php echo $row['incorp_dt']; ?></td>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['zipcode']; ?></td>
+                    <td><?php echo $row['owner']; ?></td>
+                    <td><?php echo $row['phone']; ?></td>    
                 </tr>
             <?php } ?>
             

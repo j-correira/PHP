@@ -118,6 +118,7 @@ Read, Update and Delete.
             <?php foreach ($results as $row) { ?>
                 <tr>
                     <td><?php echo $row['corp']; ?></td>
+                    <td><?php echo $row['incorp_dt']; ?></td>
                 </tr>
             <?php } ?>
             
