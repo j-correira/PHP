@@ -26,6 +26,56 @@ function getAllTestData(){
      }
     return $results;
 }
+
+
+//returning search data
+function returnSearch($searchWord, $column)
+{       
+        //db connection
+        $db = getDatabase();
+
+        //SQL statement
+        $stmt = $db->prepare("SELECT * FROM corps WHERE $column LIKE :search");
+       
+        //search word = wildcard
+        $search = '%'.$searchWord.'%';
+        
+        $binds = array(
+        ":search" => $search 
+        );
+
+        //execute SQL
+        $results = array();
+        if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        return $results;
+}
+
+
+
+//returning sort data
+function returnSort($column, $order)
+{
+            //db connection
+        $db = getDatabase();
+
+        //SQL statement
+        $stmt = $db->prepare("SELECT * FROM corps ORDER BY $column $order");
+        
+        //execute SQL
+        $results = array();
+        if ($stmt->execute() && $stmt->rowCount() > 0) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        return $results;
+}
+
+
+
+
 /*
  * $stmt = $db->prepare("SELECT * FROM test ORDER BY $column $order");
 

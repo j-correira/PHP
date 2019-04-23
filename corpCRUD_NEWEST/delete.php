@@ -65,6 +65,7 @@ Read, Update and Delete.
                 <li><a href="read.php">Read</a></li>
                 <li><a href="update.php">Update</a></li>
                 <li class="active"><a href="delete.php">Delete</a></li>
+                <li><a href="formProcess.php">Search & Sort</a></li>
             </ul>
         </div>
     </nav>

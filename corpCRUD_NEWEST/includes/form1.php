@@ -39,13 +39,22 @@
             z-index: 2;
         }       
   </style>
+  
+<script>
+    function resetSearchForm()
+    {
+        document.getElementById("searchForm").reset();
+    }
+</script>   
+
   </head>
   <body>
 
 <h3>Search:</h3>
-<form action="searchTEST.php" method="get">
+<form id="searchForm" action="searchTEST.php" method="get">
     <div class="form-group">
       <select name="dropDownValue" class="form-control" id="sort" style="width:163px;">
+        <option value="" disabled selected>Select your option</option>
         <option value="corp">Corporation Name</option>
         <option value="incorp_dt">Incorporation Date</option>
         <option value="email">Email</option>
@@ -61,10 +70,12 @@
   <input type="hidden" name="action" value="test">
   
   &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="viewSearch.php" name="submit" value="Search">
-  &nbsp;&nbsp;<input type="submit" class="btn btn-danger" name="submit" value="Reset">
-
+  &nbsp;&nbsp;<input type="button" class="btn btn-danger" onclick="resetSearchForm()" value="Reset">
+  
 </fieldset>
 </form>
+<br>
+<br>
 <br>
 
 </body>

@@ -42,7 +42,7 @@
   </head>
   <body>
 
-
+ 
 <nav class="navbar navbar-default">
         <div class="container-fluid"> 
             <div class="navbar-header">
@@ -54,6 +54,7 @@
                 <li><a href="read.php">Read</a></li>
                 <li><a href="update.php">Update</a></li>
                 <li><a href="delete.php">Delete</a></li>
+                <li><a href="formProcess.php">Search & Sort</a></li>
             </ul>
         </div>
 </nav>

@@ -45,29 +45,21 @@
             width: 125px;
         }
   </style>    
+<script>
+    function resetSortForm()
+    {
+        document.getElementById("sortForm").reset();
+    }
+</script>   
   </head>
   <body>
 
-<h3>Order By:</h3>
-<!--
+<h3>Sort By:</h3>
 
-old drop down list
-
-<form action="#" method="get">
-<fieldset>
-  <select name="order">
-    <option value="corp">corp</option>
-    <option value="incorp_dt">incorp_dt</option>
-    <option value="email">email</option>
-    <option value="zipcode">zipcode</option>
-    <option value="owner">owner</option>
-    <option value="phone">phone</option>
-  </select>
--->
-
-<form action="orderedTEST.php" method="get">
+<form id="sortForm" action="orderedTEST.php" method="get">
     <div class="form-group">
       <select name="dropDownValue" class="form-control" id="sort" style="width:163px;">
+        <option value="" disabled selected>Select your option</option>
         <option value="corp">Corporation Name</option>
         <option value="incorp_dt">Incorporation Date</option>
         <option value="email">Email</option>
@@ -77,17 +69,16 @@ old drop down list
       </select>
 
   &nbsp;
-  <input type="radio" name="radioBTN" value="ASC" checked> Ascending
+  <input type="radio" name="radioBTN" value="ASC"> Ascending
   <input type="radio" name="radioBTN" value="DESC"> Descending
 
   <input type="hidden" name="action" value="OrderBy">
   &nbsp;&nbsp;<input type="submit" class="btn btn-success" value="Sort">
+  &nbsp;&nbsp;<input type="button" class="btn btn-danger" onclick="resetSortForm()" value="Reset">
   
   <br>
   <br>
-  
 
-    
 </fieldset>
 </form>
 

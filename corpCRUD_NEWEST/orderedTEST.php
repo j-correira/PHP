@@ -59,12 +59,10 @@
     
 <h2>Testing Ordered By</h2>
 <hr>
-<br>
-<br>
-
         <?php
         //include outside files
         include_once './dbconnect.php';
+        include './functions.php';
         
         //define column name + search word
         //$column = 'corp';
@@ -72,10 +70,14 @@
         
         //receive variables from other page
         //$searchWord = $_GET["searchValue"];
+        //
         $column = $_GET["dropDownValue"];
         $order = $_GET["radioBTN"];
         
         
+        returnSort($column, $order);
+        
+    /*  commented out to test "returnSort" func
         //db connection
         $db = getDatabase();
 
@@ -88,13 +90,15 @@
         if ($stmt->execute() && $stmt->rowCount() > 0) {
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+     *
+     */
         ?>
 
 <h1>Sorting by: <u><?php echo $column ?></u></h1>
-<?php        var_dump($column); ?>
+<?php /*($column); */?>
 <br>
 <h1>Ordered by: <u><?php echo $order ?></u></h1>
-<?php        var_dump($order); ?>
+<?php /*var_dump($order); */?>
 <br>
 <br>
 
@@ -112,7 +116,7 @@
             </thead>
             <tbody>  
                           
-            <?php foreach ($results as $row) { ?>
+            <?php foreach (returnSort($column, $order) as $row) { ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['corp']; ?></td>

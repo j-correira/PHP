@@ -73,7 +73,12 @@
         //receive variables from other page
         $searchWord = $_GET["searchValue"];
         $column = $_GET["dropDownValue"];
+        
+         returnSearch($searchWord, $column);
 
+    /*  commented to test new "returnSearch" func
+     * 
+     * 
         //db connection
         $db = getDatabase();
 
@@ -94,13 +99,15 @@
         if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+    
+     */
         ?>
 
 <h1>Word/Value being searched for: <u><?php echo $searchWord ?></u></h1>
-<?php        var_dump($searchWord); ?>
+<?php /*var_dump($searchWord);*/ ?>
 <br>
 <h1>Column being searched for: <u><?php echo $column ?></u></h1>
-<?php        var_dump($column); ?>
+<?php /*var_dump($column);*/ ?>
 <br>
 <br>
 
@@ -119,7 +126,7 @@
             </thead>
             <tbody>  
                           
-            <?php foreach ($results as $row) { ?>
+            <?php foreach (returnSearch($searchWord, $column) as $row) { ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['corp']; ?></td>
