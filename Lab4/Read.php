@@ -30,7 +30,6 @@ Read, Update and Delete.
             bottom: 20px;
             right: 10px;
             border-radius: 0px 0px 10px 10px;
-            
         }
         
         #scrollUpBtn
@@ -49,13 +48,13 @@ Read, Update and Delete.
             z-index: 2;
         }
         
-
+        
   </style>
   
-  <script>
+<script>
         function scrollDown()
         {
-        window.scrollBy(0, 3500);
+        window.scrollBy(0, 5000);
         }
         
         function scrollUp()
@@ -63,16 +62,8 @@ Read, Update and Delete.
         window.scrollTo(0, 0);
         }
 </script>
+
     </head>
-    
-    
-    
-<div id="scrollBtns" class="btn-group">
-  <button type="button" id="scrollDownBtn" class="btn btn-info" onclick="scrollDown()">Scroll Down &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
-  <button type="button" id="scrollUpBtn" class="btn btn-info" onclick="scrollUp()">Scroll Up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-up"></span></button>
-</div>
-    
-    
     <body>
         <?php
         //include outside files
@@ -83,47 +74,59 @@ Read, Update and Delete.
         $db = getDatabase();
 
         //SQL statement
-        $stmt = $db->prepare("SELECT * FROM corps");
+        $stmt = $db->prepare("SELECT *, DATE_FORMAT(incorp_dt,'%m/%d/%Y') AS incorp_dt FROM corps");
 
         //execute SQL
         $results = array();
         if ($stmt->execute() && $stmt->rowCount() > 0) {
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+        
         ?>
         
+<div id="scrollBtns" class="btn-group">
+  <button type="button" id="scrollDownBtn" class="btn btn-info" onclick="scrollDown()">Scroll Down &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+  <button type="button" id="scrollUpBtn" class="btn btn-info" onclick="scrollUp()">Scroll Up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-up"></span></button>
+</div>
+               
     <nav class="navbar navbar-default">
-        <div class="container-fluid"> 
+        <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#"><b>J Correira</b></a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="viewAll.php">View All</a></li>
+                <li><a href="viewAll.php">View All</a></li>
                 <li><a href="create.php">Create</a></li>
-                <li><a href="read.php">Read</a></li>
+                <li class="active"><a href="read.php">Read</a></li>
                 <li><a href="update.php">Update</a></li>
                 <li><a href="delete.php">Delete</a></li>
                 <li><a href="formProcess.php">Search & Sort</a></li>
+
             </ul>
         </div>
     </nav>
-            
+        
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>ID #</th>
                     <th>Corporation Name</th>
+                    <th>Delete</th>
+                    <th>Update</th>
                 </tr>
             </thead>
             <tbody>  
-                          
+                           
             <?php foreach ($results as $row) { ?>
                 <tr>
+                    <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['corp']; ?></td>
-                    <td><?php echo $row['incorp_dt']; ?></td>
+                    <td><a class="btn btn-warning" href="delete.php?id=<?php echo $row['id']; ?>">Delete</a></td>
+                    <td><a class="btn btn-primary" href="update.php?id=<?php echo $row['id']; ?>">Update</a></td>            
                 </tr>
             <?php } ?>
             
             </tbody>
-        </table>             
+        </table>      
     </body>
 </html>

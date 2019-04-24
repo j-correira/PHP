@@ -57,57 +57,48 @@
         </div>
 </nav>
     
-<h2>Testing Search</h2>
+<h2>Testing Ordered By</h2>
 <hr>
-<br>
-
         <?php
         //include outside files
-        include './dbconnect.php';
+        include_once './dbconnect.php';
         include './functions.php';
-
-        //testing column name + search word
+        
+        //define column name + search word
         //$column = 'corp';
-        //$searchWord = 'test';
+        //$order = 'ASC';
         
         //receive variables from other page
-        $searchWord = $_GET["searchValue"];
+        //$searchWord = $_GET["searchValue"];
+        //
         $column = $_GET["dropDownValue"];
+        $order = $_GET["radioBTN"];
         
-         returnSearch($searchWord, $column);
-
-    /*  commented to test new "returnSearch" func
-     * 
-     * 
+        
+        returnSort($column, $order);
+        
+    /*  commented out to test "returnSort" func
         //db connection
         $db = getDatabase();
 
         //SQL statement
-        $stmt = $db->prepare("SELECT * FROM corps WHERE $column LIKE :search");
-        //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
-
+        $stmt = $db->prepare("SELECT * FROM corps ORDER BY $column $order");
         
-        //search word = wildcard
-        $search = '%'.$searchWord.'%';
-        
-        $binds = array(
-        ":search" => $search 
-        );
 
         //execute SQL
         $results = array();
-        if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+        if ($stmt->execute() && $stmt->rowCount() > 0) {
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-    
+     *
      */
         ?>
 
-<h1>Word/Value being searched for: <u><?php echo $searchWord ?></u></h1>
-<?php /*var_dump($searchWord);*/ ?>
+<h3>Sorting by: <u><?php echo $column ?></u></h3>
+<?php /*($column); */?>
 <br>
-<h1>Column being searched for: <u><?php echo $column ?></u></h1>
-<?php /*var_dump($column);*/ ?>
+<h3>Ordered by: <u><?php echo $order ?></u></h3>
+<?php /*var_dump($order); */?>
 <br>
 <br>
 
@@ -121,12 +112,11 @@
                     <th>Zipcode</th>
                     <th>Owner</th>
                     <th>Phone<th>
-                    
                 </tr>
             </thead>
             <tbody>  
                           
-            <?php foreach (returnSearch($searchWord, $column) as $row) { ?>
+            <?php foreach (returnSort($column, $order) as $row) { ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['corp']; ?></td>

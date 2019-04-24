@@ -16,15 +16,21 @@ function isGetRequest() {
 
 
 //new functions
-function getAllTestData(){
-    $db = dbconnect();
-           
-    $stmt = $db->prepare("SELECT * FROM corps");
-     $results = array();
-     if ($stmt->execute() && $stmt->rowCount() > 0) {
-         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-     }
-    return $results;
+function getAllTestData($db, $stmt){
+    
+        //db connection
+        $db = getDatabase();
+
+        //SQL statement
+        $stmt = $db->prepare("SELECT *, DATE_FORMAT(incorp_dt,'%m/%d/%Y') AS incorp_dt FROM corps");
+
+        //execute SQL
+        $results = array();
+        if ($stmt->execute() && $stmt->rowCount() > 0) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        return $results;
 }
 
 
@@ -35,7 +41,7 @@ function returnSearch($searchWord, $column)
         $db = getDatabase();
 
         //SQL statement
-        $stmt = $db->prepare("SELECT * FROM corps WHERE $column LIKE :search");
+        $stmt = $db->prepare("SELECT *, DATE_FORMAT(incorp_dt,'%m/%d/%Y') AS incorp_dt FROM corps WHERE $column LIKE :search");
        
         //search word = wildcard
         $search = '%'.$searchWord.'%';
@@ -62,7 +68,7 @@ function returnSort($column, $order)
         $db = getDatabase();
 
         //SQL statement
-        $stmt = $db->prepare("SELECT * FROM corps ORDER BY $column $order");
+        $stmt = $db->prepare("SELECT *, DATE_FORMAT(incorp_dt,'%m/%d/%Y') AS incorp_dt FROM corps ORDER BY $column $order");
         
         //execute SQL
         $results = array();
@@ -74,16 +80,20 @@ function returnSort($column, $order)
 }
 
 
-
-
-/*
- * $stmt = $db->prepare("SELECT * FROM test ORDER BY $column $order");
-
-function searchTest($column, $search)
+//output columns
+function outputColumns($row)
 {
-    
+                foreach ($results as $row) {
+                /*
+                    <td>echo $row['corp'];</td>
+                    <td>echo $row['incorp_dt'];</td>
+                    <td>echo $row['email'];</td>
+                    <td>echo $row['zipcode'];</td>
+                    <td>echo $row['owner'];</td>
+                    <td>echo $row['phone'];</td>
+                */
+                }
+                return $results;
 }
- */    
-
 
 ?>
