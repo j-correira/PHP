@@ -1,47 +1,4 @@
-<?php
 
-/* 
- * 
- * 
- * kinda wokring.....
- * 
- * 
- * 
-(-) login.php allows the user to login by providing a username and password.
-(-) The password must be encrypted in the user table.
-(-) Upon logging in the user is taken to the upload.php page.
- */
-
-session_start();
-
-//include outside files
-include './dbconnect.php';
-include './functions.php';
-
-//if (isset($_POST['username']) and isset($_POST['password'])){
-    
-$username = $_GET['userName'];
-$password = $_GET['password'];
-
-
-        //db connection
-        $db = getDatabase();
-
-       //SQL statement
-        $stmt = $db->prepare("SELECT * FROM users WHERE user = '".$username."' AND passkey = '".$password."' ");
-        //$stmt = $db->prepare("SELECT * FROM users");
-        
-        //echo $num_rows . "= Number of Rows";
-        
-        //execute SQL
-        $results = array();
-        if ($stmt->execute() && $stmt->rowCount() > 0) {
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            //$num_rows = mysqli_num_rows($results);
-        }
-
-?>
 
 <!DOCTYPE html>
 <html>
@@ -60,7 +17,7 @@ $password = $_GET['password'];
   <body>
   
 <div class="container">
-    <form method="get" action="">
+    <form method="GET" action="">
         <div id="div_login">
             <h1>Login</h1>
             <div>
@@ -71,10 +28,105 @@ $password = $_GET['password'];
             </div>
             <div>
                 <input type="submit" value="Submit" name="but_submit" id="but_submit" />
+                <?php 
+                        $username = $_GET['userName'];
+                        $password = $_GET['password'];
+                ?>
             </div>
         </div>
     </form>
 </div>
+      
+      
+<?php
+
+/* 
+ * 
+ * 
+ * kinda wokring.....       [user1:pass1]
+ * 
+ * fix session var err 
+ * 
+(-) login.php allows the user to login by providing a username and password.
+(-) The password must be encrypted in the user table.
+(-) Upon logging in the user is taken to the upload.php page.
+ */
+
+session_start();
+
+
+//include outside files
+include './dbconnect.php';
+include './functions.php';
+
+        //if (isset($_POST['username']) and isset($_POST['password'])){
+    
+        
+
+
+        
+        
+        
+        //$username = $_POST['userName'];
+        //$password = $_POST['password'];
+
+        //db connection
+        $db = getDatabase();
+
+       //SQL statement
+        $stmt = $db->prepare("SELECT * FROM users WHERE user = :username AND passkey = :password");
+        //$stmt = $db->prepare("SELECT * FROM users WHERE user = '".$username."' AND passkey = '".SHA1($password)."' ");
+        //$stmt = $db->prepare("SELECT * FROM users WHERE user = '".$username."' AND passkey = '".$password."' ");
+        //$stmt = $db->prepare("SELECT * FROM users");
+        
+        //echo $num_rows . "= Number of Rows";
+        
+    
+        $binds = array(
+        ":username" => $username,
+        ":password" => SHA1($password)
+        );
+    
+        echo "status of (login): ";
+        var_dump($_SESSION);
+        
+        
+        //execute SQL
+        $results = array();
+        
+
+        
+        if ($stmt->execute($binds) && $stmt->rowCount() > 0)
+        {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo "<h1 style='color:green'>logged in</h1>";
+            
+            $_SESSION["login"] = "set";
+            
+            var_dump($_SESSION);
+            
+            header("location:upload.php");
+            die();
+        }                         
+        else
+        {
+            //echo "<h1 style='color:red'>Failed to login...</h1>";
+            //$_SESSION["login"] = "no";
+        }
+        
+        
+
+
+
+?>
+      
+      
+      <?php
+      
+
+      
+      ?>
       
   <br>
   <br>

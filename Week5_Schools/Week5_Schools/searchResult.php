@@ -47,6 +47,9 @@
 <br>
 
         <?php
+        
+        session_start();
+        
         //include outside files
         include './dbconnect.php';
         include './functions.php';
