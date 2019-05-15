@@ -40,7 +40,7 @@
 <div class="container">
 
   <div class="page-header">
-      <h1>Classic Models Tables & Searches</h1>      
+      <h1><b>Var_Dumps</b> for Classic Models Select Statements</h1>      
   </div>
     
 <!-- <div id="btnsLeft"> -->
@@ -56,8 +56,8 @@
     <br>
    
     <?php $result = listCustomers ();
-    //var_dump ($result);
-    displayTable ($result); ?>
+    var_dump ($result);
+    //displayTable ($result); ?>
   </div>
 
       
@@ -66,15 +66,15 @@
       
     <br>
     <form id="searchEmployeesForm" action="searchResult.php" method="get">   
-        <input name="searchValueEmployees" type="search" placeholder="Employee First Name" class="form-control" style="width:175px; display: inline;" />
+        <input name="searchValueEmployees" type="search" placeholder="Employee Name" class="form-control" style="width:175px; display: inline;" />
         &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="searchResult.php" name="submit" value="Search Employees">  
         </fieldset>
     </form>
     <br> 
      
     <?php $result = listEmployees ();
-    //var_dump ($result);
-    displayTable ($result); ?>
+    var_dump ($result);
+    //displayTable ($result); ?>
   </div>
  
       
@@ -90,8 +90,8 @@
     <br>         
       
     <?php $result = listProducts ();
-    //var_dump ($result);
-    displayTable ($result); ?>
+    var_dump ($result);
+    //displayTable ($result); ?>
   </div>
   
         
@@ -107,8 +107,8 @@
     <br>
       
     <?php $result = listOrders ();
-    //var_dump ($result);
-    displayTable ($result); ?>
+    var_dump ($result);
+    //displayTable ($result); ?>
   </div>
   
 <!-- </div> /btnsLeft --> 
@@ -117,25 +117,28 @@
 <!-- <div id="btnsRight"> -->
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo5">Top Customers</button>
   <div div id="demo5" class="collapse">
+    <br>
     <?php $result = listTopCustomers ();
-    //var_dump ($result);
-    displayTable ($result); ?>
+    var_dump ($result);
+    //displayTable ($result); ?>
   </div>
 
             
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo6">Useless Customers</button>
   <div div id="demo6" class="collapse">
+    <br>
     <?php $result = listUselessCustomers ();
-    //var_dump ($result);
-    displayTable ($result); ?>
+    var_dump ($result);
+    //displayTable ($result); ?>
   </div>
 
               
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo7">Customers & Countries</button>
   <div div id="demo7" class="collapse">
+    <br>
     <?php $result = listCustomersByCountry ();
-    //var_dump ($result);
-    displayTable ($result); ?>
+    var_dump ($result);
+    //displayTable ($result); ?>
   </div>
   
 <!-- </div> /btnsRight -->

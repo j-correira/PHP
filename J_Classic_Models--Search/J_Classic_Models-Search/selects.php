@@ -24,9 +24,9 @@ function returnCustomerSearch($searchWord)
       
     //search word = wildcard
     $search = '%'.$searchWord.'%';
-        
+    
     $binds = array(
-    ":search" => $search 
+    ":search" => $search,
     );
 
     //execute SQL
@@ -62,7 +62,46 @@ function returnEmployeeSearch($searchWord)
     $db = dbconnect();
 
     //SQL statement
-    $stmt = $db->prepare("SELECT * FROM classicmodels.employees WHERE firstName LIKE :search");
+    $stmt = $db->prepare("SELECT * FROM classicmodels.employees WHERE firstName LIKE :search;");
+    //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
+      
+    //search word = wildcard
+    $search = '%'.$searchWord.'%';
+        
+    $binds = array(
+    ":search" => $search,
+    );
+
+    //execute SQL
+    $results = array();
+    if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+        
+    return $results;
+}
+//------------ (#2)
+
+
+//------------ (#3)
+function listProducts()
+{
+    $sql = "SELECT classicmodels.products.productName, classicmodels.products.productLine, classicmodels.productlines.textDescription,
+	   classicmodels.products.quantityInStock, CONCAT('$', classicmodels.products.buyPrice) AS buyPrice,
+       CONCAT('$', classicmodels.products.MSRP) AS MSRP
+FROM classicmodels.products
+INNER JOIN classicmodels.productlines ON classicmodels.products.productLine = classicmodels.productlines.productLine
+ORDER BY productLine ASC;";
+    return (getRecords($sql));
+}
+
+function returnProductSearch($searchWord)
+{       
+    //db connection
+    $db = dbconnect();
+
+    //SQL statement
+    $stmt = $db->prepare("SELECT * FROM classicmodels.products WHERE productName LIKE :search");
     //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
       
     //search word = wildcard
@@ -80,23 +119,11 @@ function returnEmployeeSearch($searchWord)
         
     return $results;
 }
+//------------ (#3)
 
-//------------ (#2)
 
 
-// (#3)
-function listProducts()
-{
-    $sql = "SELECT classicmodels.products.productName, classicmodels.products.productLine, classicmodels.productlines.textDescription,
-	   classicmodels.products.quantityInStock, CONCAT('$', classicmodels.products.buyPrice) AS buyPrice,
-       CONCAT('$', classicmodels.products.MSRP) AS MSRP
-FROM classicmodels.products
-INNER JOIN classicmodels.productlines ON classicmodels.products.productLine = classicmodels.productlines.productLine
-ORDER BY productLine ASC;";
-    return (getRecords($sql));
-}
-
-// (#4)
+//------------ (#4)
 function listOrders()
 {
     $sql = "SELECT classicmodels.orders.orderDate, classicmodels.orders.status, classicmodels.customers.customerName,
@@ -111,6 +138,34 @@ INNER JOIN classicmodels.customers ON classicmodels.orders.customerNumber = clas
 ORDER BY classicmodels.orders.orderDate DESC;";
     return (getRecords($sql));
 }
+
+function returnOrdersSearch($searchWord)
+{       
+    //db connection
+    $db = dbconnect();
+
+    //SQL statement
+    $stmt = $db->prepare("SELECT * FROM classicmodels.orders WHERE status LIKE :search");
+    //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
+      
+    //search word = wildcard
+    $search = '%'.$searchWord.'%';
+        
+    $binds = array(
+    ":search" => $search
+    );
+
+    //execute SQL
+    $results = array();
+    if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+        
+    return $results;
+}
+//------------ (#4)
+
+
 
 // (#5)
 function listTopCustomers()
