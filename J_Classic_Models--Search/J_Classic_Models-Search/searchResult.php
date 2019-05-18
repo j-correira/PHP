@@ -41,7 +41,7 @@ include 'selects.php';
 if($_REQUEST['submit']=="Search Customers")
 {
     $searchWord = $_GET["searchValueCustomers"];
-    echo "<h3>Word/Value being searched for: <u><h3 style='color:green'>$searchWord</h3></u></h3><br>";
+    echo "<h3>Customer being searched for: <u><h3 style='color:green'>$searchWord</h3></u></h3><br>";
     //print "search for customers";
     $result = returnCustomerSearch($searchWord);
     //var_dump ($result);
@@ -60,8 +60,17 @@ else if($_REQUEST['submit']=="Search Employees")
 else if($_REQUEST['submit']=="Search Products")
 {
     $searchWord = $_GET["searchValueProducts"];
-    echo "<h3>Word/Value being searched for: <u><h3 style='color:green'>$searchWord</h3></u></h3><br>";
+    echo "<h3>Product being searched for: <u><h3 style='color:green'>$searchWord</h3></u></h3><br>";
     $result = returnProductSearch($searchWord);
+    //var_dump ($result);
+    displayTable ($result);
+}
+
+else if($_REQUEST['submit']=="Search Product Line")
+{
+    $searchWord = $_GET["searchValueProductsLine"];
+    echo "<h3>Product Line being searched for: <u><h3 style='color:green'>$searchWord</h3></u></h3><br>";
+    $result = returnProductLineSearch($searchWord);
     //var_dump ($result);
     displayTable ($result);
 }
@@ -69,11 +78,24 @@ else if($_REQUEST['submit']=="Search Products")
 else if($_REQUEST['submit']=="Search Orders")
 {
     $searchWord = $_GET["searchValueOrders"];
-    echo "<h3>Word/Value being searched for: <u><h3 style='color:green'>$searchWord</h3></u></h3><br>";
+    echo "<h3>Order Status being searched for: <u><h3 style='color:green'>$searchWord</h3></u></h3><br>";
     $result = returnOrdersSearch($searchWord);
     //var_dump ($result);
     displayTable ($result);
 }
+
+else if($_REQUEST['submit']=="Search Order Date")
+{
+    $searchWord1 = $_GET["searchValueOrdersDate1"];
+    $searchWord2 = $_GET["searchValueOrdersDate2"];
+    echo "<h3>Searching for Orders between: <u><h3 style='color:green'>$searchWord1</h3></u></h3>&nbsp;";
+    echo "<h3>and <u><h3 style='color:green'>$searchWord2</h3></u></h3><br>";
+
+    $result = returnOrdersDateSearch($searchWord1, $searchWord2);
+    //var_dump ($result);
+    displayTable ($result);
+}
+
 
 
 ?>

@@ -20,7 +20,6 @@ function returnCustomerSearch($searchWord)
 
     //SQL statement
     $stmt = $db->prepare("SELECT * FROM classicmodels.customers WHERE customerName LIKE :search");
-    //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
       
     //search word = wildcard
     $search = '%'.$searchWord.'%';
@@ -43,16 +42,12 @@ function returnCustomerSearch($searchWord)
 //------------ (#2)
 function listEmployees()
 {
-    $sql = "SELECT A.firstName, A.lastName, A.jobTitle, A.extension, A.email, A.officeCode, 
-       CONCAT(classicmodels.offices.addressLine1, ' ', COALESCE(classicmodels.offices.addressLine2, ' '),
-       ' ', COALESCE(classicmodels.offices.state, ' '),  ' ', classicmodels.offices.country,  ' ',
-	   classicmodels.offices.postalCode) AS officeLocation,
-	   A.reportsTo, CONCAT(B.firstName, ' ', B.lastName) AS managerName
-       
-FROM classicmodels.employees A, classicmodels.employees B
-INNER JOIN classicmodels.offices ON B.officeCode = classicmodels.offices.officeCode
-WHERE A.reportsTo = B.employeeNumber
-ORDER BY A.lastName DESC, A.firstName;";
+    $sql = "SELECT  A.firstName, A.lastName, A.jobTitle, A.extension, A.email, o.city as officeLocation, 
+       concat(B.firstName, ' ', B.lastName) AS 'reportsTo' 
+        FROM classicmodels.employees A 
+        LEFT OUTER JOIN classicmodels.employees B ON A.reportsTo=B.employeeNumber 
+        INNER JOIN classicmodels.offices o on A.officecode=o.officecode 
+        ORDER BY A.lastName, A.firstName;";
     return (getRecords($sql));
 }
 
@@ -62,8 +57,7 @@ function returnEmployeeSearch($searchWord)
     $db = dbconnect();
 
     //SQL statement
-    $stmt = $db->prepare("SELECT * FROM classicmodels.employees WHERE firstName LIKE :search;");
-    //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
+    $stmt = $db->prepare("SELECT * FROM classicmodels.employees WHERE concat(firstName, ' ', lastName) LIKE :search;");
       
     //search word = wildcard
     $search = '%'.$searchWord.'%';
@@ -102,7 +96,30 @@ function returnProductSearch($searchWord)
 
     //SQL statement
     $stmt = $db->prepare("SELECT * FROM classicmodels.products WHERE productName LIKE :search");
-    //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
+      
+    //search word = wildcard
+    $search = '%'.$searchWord.'%';
+        
+    $binds = array(
+    ":search" => $search
+    );
+
+    //execute SQL
+    $results = array();
+    if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+        
+    return $results;
+}
+
+function returnProductLineSearch($searchWord)
+{       
+    //db connection
+    $db = dbconnect();
+
+    //SQL statement
+    $stmt = $db->prepare("SELECT * FROM classicmodels.products WHERE productLine LIKE :search");
       
     //search word = wildcard
     $search = '%'.$searchWord.'%';
@@ -146,7 +163,6 @@ function returnOrdersSearch($searchWord)
 
     //SQL statement
     $stmt = $db->prepare("SELECT * FROM classicmodels.orders WHERE status LIKE :search");
-    //WORKING--- $stmt = $db->prepare("SELECT * FROM corps WHERE corp LIKE '%test%'");
       
     //search word = wildcard
     $search = '%'.$searchWord.'%';
@@ -163,11 +179,37 @@ function returnOrdersSearch($searchWord)
         
     return $results;
 }
+
+function returnOrdersDateSearch($searchWord1, $searchWord2)
+{       
+    //db connection
+    $db = dbconnect();
+
+    //SQL statement
+    $stmt = $db->prepare("SELECT * FROM classicmodels.orders WHERE orderDate BETWEEN :search1 AND :search2");
+      
+    //search word = wildcard
+    $search1 = $searchWord1;
+    $search2 = $searchWord2;
+        
+    $binds = array(
+    ":search1" => $search1,
+    ":search2" => $search2
+    );
+
+    //execute SQL
+    $results = array();
+    if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+        
+    return $results;
+}
 //------------ (#4)
 
 
 
-// (#5)
+//------------ (#5)
 function listTopCustomers()
 {
     $sql = "SELECT CONCAT(classicmodels.customers.contactFirstName, ' ', classicmodels.customers.contactLastName) AS CustomerName,
@@ -181,8 +223,9 @@ ORDER BY amountSpent DESC
 LIMIT 10;";
     return (getRecords($sql));
 }
+//------------ (#5)
 
-// (#6)
+//------------ (#6)
 function listUselessCustomers()
 {
     $sql = "SELECT classicmodels.customers.customerNumber,
@@ -195,8 +238,9 @@ LEFT JOIN classicmodels.orders ON classicmodels.customers.customerNumber = class
 WHERE classicmodels.orders.customerNumber IS NULL;";
     return (getRecords($sql));
 }
+//------------ (#6)
 
-// (#7)
+//------------ (#7)
 function listCustomersByCountry()
 {
     $sql = "SELECT country, Count(*) AS numOfCustomers
@@ -205,6 +249,7 @@ GROUP BY country
 ORDER BY country;";
     return (getRecords($sql));
 }
+//------------ (#7)
 
 
 
