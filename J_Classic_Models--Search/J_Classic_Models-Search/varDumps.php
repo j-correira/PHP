@@ -40,7 +40,7 @@
 <div class="container">
 
   <div class="page-header">
-      <h1><b>Var_Dumps</b> for Classic Models Select Statements</h1>      
+      <h1><b>Var_Dumps</b> Classic Models</h1>      
   </div>
     
 <!-- <div id="btnsLeft"> -->
@@ -66,7 +66,7 @@
       
     <br>
     <form id="searchEmployeesForm" action="searchResult.php" method="get">   
-        <input name="searchValueEmployees" type="search" placeholder="Employee Name" class="form-control" style="width:175px; display: inline;" />
+        <input name="searchValueEmployees" type="search" placeholder="Employee First/last Name" class="form-control" style="width:215px; display: inline;" />
         &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="searchResult.php" name="submit" value="Search Employees">  
         </fieldset>
     </form>
@@ -82,9 +82,14 @@
   <div div id="demo3" class="collapse">
       
     <br>
-    <form id="searchProductsForm" action="searchResult.php" method="get">   
+    <form id="searchProductsForm" action="searchResult.php" method="get" style="margin-bottom: 15px; width:325px;">   
         <input name="searchValueProducts" type="search" placeholder="Product Name" class="form-control" style="width:175px; display: inline;" />
-        &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="searchResult.php" name="submit" value="Search Products">  
+        &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="searchResult.php" name="submit" value="Search Products"style="">  
+        </fieldset>
+    </form>
+        <form id="searchProductsLine" action="searchResult.php" method="get" style="width:345px;">   
+            <input name="searchValueProductsLine" type="search" placeholder="Product Line" class="form-control" style="width:175px; display: inline;" />
+        &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="searchResult.php" name="submit" value="Search Product Line">  
         </fieldset>
     </form>
     <br>         
@@ -99,9 +104,16 @@
   <div div id="demo4" class="collapse">
       
     <br>
-    <form id="searchProductsForm" action="searchResult.php" method="get">   
+    <form id="searchOrdersForm" action="searchResult.php" method="get" style="margin-bottom: 25px;">   
         <input name="searchValueOrders" type="search" placeholder="Order Status" class="form-control" style="width:175px; display: inline;" />
         &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="searchResult.php" name="submit" value="Search Orders">  
+        </fieldset>
+    </form>
+    </form>
+        <form id="searchOrdersLine" action="searchResult.php" method="get" style="width: 395px;">   
+            <input name="searchValueOrdersDate1" type="search" placeholder="Date Range Begin (2016-11-07)" class="form-control" style="width: 230px; display: inline; margin-bottom:5px" />
+            <input name="searchValueOrdersDate2" type="search" placeholder="Date Range End (2016-11-25)" class="form-control" style="width: 230px; display: inline;" />
+        &nbsp;&nbsp;<input type="submit" class="btn btn-success" href="searchResult.php" name="submit" value="Search Order Date">  
         </fieldset>
     </form>
     <br>
@@ -117,7 +129,6 @@
 <!-- <div id="btnsRight"> -->
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo5">Top Customers</button>
   <div div id="demo5" class="collapse">
-    <br>
     <?php $result = listTopCustomers ();
     var_dump ($result);
     //displayTable ($result); ?>
@@ -126,7 +137,6 @@
             
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo6">Useless Customers</button>
   <div div id="demo6" class="collapse">
-    <br>
     <?php $result = listUselessCustomers ();
     var_dump ($result);
     //displayTable ($result); ?>
@@ -135,7 +145,6 @@
               
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo7">Customers & Countries</button>
   <div div id="demo7" class="collapse">
-    <br>
     <?php $result = listCustomersByCountry ();
     var_dump ($result);
     //displayTable ($result); ?>
