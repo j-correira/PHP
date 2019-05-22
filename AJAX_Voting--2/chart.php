@@ -10,14 +10,6 @@
   <title></title>
 </head>
 <body>
-  <div class="container">
-    <canvas id="myChart2"></canvas>
-  </div>
-
-  <script>
-   // Bar chart
-
-  </script>
 </body>
 </html>
 

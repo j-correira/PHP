@@ -68,8 +68,8 @@ ORDER BY DisneyCharacterID;");
 <br>
 <br>
 
-<?php echo ($results2[1][0] . " "); 
- echo ($results2[2][0]);
+<?php //echo ($results2[1][0] . " "); 
+ //echo ($results2[2][0]);
 ?>
     
 
@@ -95,6 +95,22 @@ ORDER BY DisneyCharacterID;");
         height: 65px;
     }
 
+    #myChart
+    {
+        margin-top:25px;
+        height:250px;
+    }
+    
+    #resultDiv
+    {
+        width:410px;
+    }
+    
+    #ajaxButton2
+    {
+        margin-top:25px;
+        font-size:18px;
+    }
 </style>
 
 <!-- Latest compiled and minified CSS -->
@@ -117,21 +133,21 @@ ORDER BY DisneyCharacterID;");
     <img src="images/<?php echo($results[2][0]); ?>" alt="Donald Duck">
     <h3><?php echo($results[1][0]); ?></h3>
     <br>
-    <button id="addDonald" type="button" class="btn btn-primary">Vote for Donald</button>
+    <button id="addDonald" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Donald</button>
 </div>
 
 <div id="mickey" class="characterDiv">
     <img src="images/<?php echo($results[2][1]); ?>" alt="Mickey Mouse">
     <h3><?php echo($results[1][1]); ?></h3>
     <br>
-    <button id="addMickey" type="button" class="btn btn-primary">Vote for Mickey</button>
+    <button id="addMickey" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Mickey</button>
 </div>
 
 <div id="goofy" class="characterDiv">
     <img src="images/<?php echo($results[2][2]); ?>" alt="Goofy Goof">
     <h3><?php echo($results[1][2]); ?></h3>
     <br>
-    <button id="addGoofy" type="button" class="btn btn-primary">Vote for Goofy</button>
+    <button id="addGoofy" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Goofy</button>
 </div>
     
 <div id="JSchart">
@@ -141,24 +157,30 @@ ORDER BY DisneyCharacterID;");
     <br>
     <br>
     
-    <div id="resultDiv">
+    <div id="resultDiv" >
     
     </div>
     
+    <br>
+    <br>
     <!--
     <button id="ajaxButton2" type="button">Make a request</button>
     <div id="resultDiv2"></div>
     -->
     
     
-<canvas id="myChart" width="400" height="400"></canvas>
+    <button id="ajaxButton2" onclick="displayChart()" class="btn btn-danger" type="button">Make a request</button>
+    <div id="resultDiv2"></div>
+    
+    
+  
+<canvas id="myChart" ></canvas>
 
     
     
 </div><!-- /container -->
 
-<script>
-    
+<script>   
 //----------- Donald
 (function() {
   var httpRequest;
@@ -178,7 +200,7 @@ ORDER BY DisneyCharacterID;");
   function displayContents() {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        document.getElementById("resultDiv").innerHTML = httpRequest.responseText;
+        //---- document.getElementById("resultDiv").innerHTML = httpRequest.responseText;
       } else {
         alert('Something went wrong...');
       }
@@ -207,7 +229,7 @@ ORDER BY DisneyCharacterID;");
   function displayContents() {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        document.getElementById("resultDiv").innerHTML = httpRequest.responseText;
+        //---- document.getElementById("resultDiv").innerHTML = httpRequest.responseText;
       } else {
         alert('Something went wrong...');
       }
@@ -237,7 +259,7 @@ ORDER BY DisneyCharacterID;");
   function displayContents() {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        document.getElementById("resultDiv").innerHTML = httpRequest.responseText;
+        //---- document.getElementById("resultDiv").innerHTML = httpRequest.responseText;
       } else {
         alert('Something went wrong...');
       }
@@ -246,8 +268,8 @@ ORDER BY DisneyCharacterID;");
 })();
 //----------- Goofy
 
-
-
+function displayChart()
+{
 
 //GET from vote.php
 (function() {
@@ -261,30 +283,35 @@ ORDER BY DisneyCharacterID;");
     }
         
     httpRequest.onreadystatechange = displayContents;
-    httpRequest.open('GET', 'vote.php?characterName=' + encodeURIComponent("Super Man") + '&characterVotes=' + encodeURIComponent("1"));
-    httpRequest.send('characterName=' + encodeURIComponent("Super Man"));
+    httpRequest.open('GET', 'vote.php?characterName=' + '&characterVotes=');
+    httpRequest.send('characterName=');
   }
   function displayContents() {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
+        
+        //var obj = JSON.parse(httpRequest);
+        //console.log(obj);
+        
         document.getElementById("resultDiv2").innerHTML = httpRequest.responseText;
+
       } else {
         alert('There was a problem with the request.');
       }
     }
+    
   }
-})();
+  
 
-function displayChart()
-{
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
+//----------- Chart
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: ['Donald', 'Mickey', 'Goofy'],
         datasets: [{
             label: '# of Votes',
-            data: [1, 2, 3],
+            data: [1, 1, 1],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -314,5 +341,11 @@ function displayChart()
         }
     }
 });
+//----------- Chart
+  
+  
+  
+})();
 }
+
 </script>

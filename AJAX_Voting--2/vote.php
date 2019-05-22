@@ -1,7 +1,7 @@
 <?php
 
 //echo $_POST['characterID'];
-
+//$_POST['characterID'] = "";
 $characterID = $_POST['characterID'];
 $voterIP = $_SERVER['REMOTE_ADDR'];
 
@@ -30,44 +30,40 @@ if ($stmt->execute($binds) && $stmt->rowCount() > 0)
 
 
 
+
 //GET returns JSON of 2 arrays (Characters, #Votes)   
-/*
-    $db = getDatabase();
+    $db2 = getDatabase();
    
-    $stmt = $db->prepare("SELECT disneyvotes.DisneyCharacterID, DisneyCharacterName, Count(*) AS numVotes
-FROM disneyvotes
-INNER JOIN disneycharacters
-ON disneyvotes.DisneyCharacterID = disneycharacters.DisneyCharacterID
-GROUP BY DisneyCharacterName
-ORDER BY DisneyCharacterID;");
+    $stmt2 = $db2->prepare("SELECT disneyvotes.DisneyCharacterID, DisneyCharacterName, Count(*) AS numVotes
+                            FROM disneyvotes
+                            INNER JOIN disneycharacters
+                            ON disneyvotes.DisneyCharacterID = disneycharacters.DisneyCharacterID
+                            GROUP BY DisneyCharacterName
+                            ORDER BY DisneyCharacterID;");
       
     $votes = array();
     
-    if ($stmt->execute() && $stmt->rowCount() > 0)
+    if ($stmt2->execute() && $stmt2->rowCount() > 0)
     {
-        $votes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $votes = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }
-    //echo json_encode($characters);
-*/
-
-    //setup arrays for data
-
-    $voteResults = array($_GET['characterName'], $_GET['characterVotes']);
     
-    echo json_encode($voteResults);
-/*    
-    $voteResults[0] = array(); //id
-    $voteResults[1] = array (); //name
-    $voteResults[2] = array (); //# votes
+    //$voteResults[0] = array(); //id
+    $voteResults[0] = array (); //name
+    $voteResults[1] = array (); //# votes
     
-
     //fill arrays with data
     foreach ($votes as $v)
     {
-        array_push($voteResults[0], $v['DisneyCharacterID']);
-        array_push($voteResults[1], $v['DisneyCharacterName']);
-        array_push($voteResults[2], $v['numVotes']);
+        //array_push($voteResults[0], $v['DisneyCharacterID']);
+        array_push($voteResults[0], $v['DisneyCharacterName']);
+        array_push($voteResults[1], $v['numVotes']);
+
     }
+                //echo ("not encoded " . $voteResults[0][1] . " " . $voteResults[1][1] . "<br><br>");
+
     echo json_encode($voteResults);
- */
+    echo ("words");
+    
+    //$voteResults = array ($_GET['characterName'], $_GET['characterVotes']);
 ?>
