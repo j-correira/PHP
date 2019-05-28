@@ -95,10 +95,9 @@ ORDER BY DisneyCharacterID;");
         height: 65px;
     }
 
-    #myChart
+    #myChart2
     {
-        margin-top:25px;
-        height:250px;
+
     }
     
     #resultDiv
@@ -121,6 +120,7 @@ ORDER BY DisneyCharacterID;");
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- JS chart library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
     
 
@@ -163,18 +163,11 @@ ORDER BY DisneyCharacterID;");
     
     <br>
     <br>
-    <!--
-    <button id="ajaxButton2" type="button">Make a request</button>
-    <div id="resultDiv2"></div>
-    -->
+
     
-    
-    <button id="ajaxButton2" onclick="displayChart()" class="btn btn-danger" type="button">Make a request</button>
-    <div id="resultDiv2"></div>
-    
-    
-  
-<canvas id="myChart" ></canvas>
+
+    <canvas id="myChart2"></canvas>
+
 
     
     
@@ -268,84 +261,41 @@ ORDER BY DisneyCharacterID;");
 })();
 //----------- Goofy
 
-function displayChart()
-{
+   
 
-//GET from vote.php
-(function() {
-  var httpRequest;
-  document.getElementById("ajaxButton2").addEventListener('click', makeRequest);
-  function makeRequest() {
-    httpRequest = new XMLHttpRequest();
-    if (!httpRequest) {
-      alert('Giving up :( Cannot create an XMLHTTP instance');
-      return false;
-    }
-        
-    httpRequest.onreadystatechange = displayContents;
-    httpRequest.open('GET', 'vote.php?characterName=' + '&characterVotes=');
-    httpRequest.send('characterName=');
-  }
-  function displayContents() {
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-      if (httpRequest.status === 200) {
-        
-        //var obj = JSON.parse(httpRequest);
-        //console.log(obj);
-        
-        document.getElementById("resultDiv2").innerHTML = httpRequest.responseText;
-
-      } else {
-        alert('There was a problem with the request.');
-      }
-    }
-    
-  }
-  
-
-//----------- Chart
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Donald', 'Mickey', 'Goofy'],
-        datasets: [{
-            label: '# of Votes',
-            data: [1, 1, 1],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-//----------- Chart
-  
-  
-  
-})();
-}
 
 </script>
+
+<script>
+    
+    $(document).ready(function () {
+        
+        $.get ("getVotes.php", function (data) {
+           votes = JSON.parse(data);
+           //undef = JSON.parse(undefined)
+
+           console.log (votes);
+           
+           
+           new Chart(document.getElementById("myChart2"), {
+                type: 'bar',
+                data: {
+                  labels: votes[0],
+                  datasets: [
+                    {
+                      label: "Number of Votes",
+                      backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+                      data: votes[1],
+                      borderWidth: 10
+                    }
+                  ]
+                },
+
+            });
+           
+        });
+        
+        
+        
+    })
+ </script>
