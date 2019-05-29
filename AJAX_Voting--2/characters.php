@@ -80,25 +80,27 @@ ORDER BY DisneyCharacterID;");
 <style>
     .characterDiv
     {
-        border: 1px solid black;
-        border-radius: 4px;
-        width:300px;
-        float:left;
-        padding-top: 10px;
-        margin-right: 65px;
-        text-align: center;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 242px;
+    float: left;
+    padding-top: 10px;
+    margin-right: 103px;
+    text-align: center;
     }
     
     #donald
     {
         border-color: #3988bb;
         border-width: 3px;
+        margin-left: 100px;
     }
     
     #goofy
     {
         border-color: #8e5ea2;
         border-width: 3px;
+        margin-bottom: 25px;
     }
     
     #mickey
@@ -109,13 +111,15 @@ ORDER BY DisneyCharacterID;");
     
     .btn
     {
-        width: 294px;
+        width: 237px;
         height: 65px;
         border-radius: 0px;
     }
 
     #myChart2
     {
+            padding: 10px;
+
     }
     
     #resultDiv
@@ -133,6 +137,11 @@ ORDER BY DisneyCharacterID;");
     {
         margin-bottom:25px;
     }
+    
+    img {
+    vertical-align: middle;
+    width: 240px;
+}
 </style>
 
 <!-- Latest compiled and minified CSS -->
@@ -157,21 +166,24 @@ ORDER BY DisneyCharacterID;");
     <img src="images/<?php echo($results[2][0]); ?>" alt="Donald Duck">
     <h3><?php echo($results[1][0]); ?></h3>
     <br>
-    <button style="background-color:#3988bb;" id="addDonald" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Donald</button>
+    <button style="background-color:#3988bb; border-radius: 0px;
+    border: none;" id="addDonald" type="button" class="btn btn-primary" onclick="" >Vote for Donald</button>
 </div>
     
 <div id="goofy" class="characterDiv">
     <img src="images/<?php echo($results[2][2]); ?>" alt="Goofy Goof">
     <h3><?php echo($results[1][2]); ?></h3>
     <br>
-    <button style="background-color:#8e5ea2;" id="addGoofy" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Goofy</button>
+    <button style="background-color:#8e5ea2; border-radius: 0px;
+    border: none;" id="addGoofy" type="button" class="btn btn-primary" onclick="" >Vote for Goofy</button>
 </div>
 
 <div id="mickey" class="characterDiv">
     <img src="images/<?php echo($results[2][1]); ?>" alt="Mickey Mouse">
     <h3><?php echo($results[1][1]); ?></h3>
     <br>
-    <button style="background-color:#37ab92;" id="addMickey" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Mickey</button>
+    <button style="background-color:#37ab92;  border-radius: 0px;
+    border: none;" id="addMickey" type="button" class="btn btn-primary" onclick="" >Vote for Mickey</button>
 </div>
 
 </div><!-- /characters -->
@@ -326,9 +338,9 @@ ORDER BY DisneyCharacterID;");
 
 <script>
     
-    $(document).ready(function () {
+    //$(document).ready(function () {
         
-    //function displayChart(){
+    function displayChart(){
         
         $.get ("getVotes.php", function (data) {
            votes = JSON.parse(data);
@@ -336,8 +348,7 @@ ORDER BY DisneyCharacterID;");
 
            console.log (votes);
            
-           
-           new Chart(document.getElementById("myChart2"), {
+            new Chart(document.getElementById("myChart2"), {
                 type: 'bar',
                 data: {
                   labels: votes[0],
@@ -350,15 +361,35 @@ ORDER BY DisneyCharacterID;");
                     }
                   ]
                 },
-
+                options: {
+                  legend: { display: false },
+                  title: {
+                    display: false,
+                    text: 'Number of Votes For Each Disney Character'
+                  },
+                  scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
             });
-           
-        });
+        })
+    } //displayChart()      
         
-    //}// /displayChart()
-        
-        
+    $(document).ready (function (e) {
+        displayChart ();
+          $(".btn").click (function (e) {
+            
+            $.post ("getVotes.php", {characterId: $(this).data("DisneyCharacterID")}, function (data) {
+               displayChart ();
+            })
+        }); 
     })
+        
+    //})
     
     
 
