@@ -82,22 +82,40 @@ ORDER BY DisneyCharacterID;");
     {
         border: 1px solid black;
         border-radius: 4px;
-        width:295px;
+        width:300px;
         float:left;
         padding-top: 10px;
         margin-right: 65px;
         text-align: center;
     }
     
+    #donald
+    {
+        border-color: #3988bb;
+        border-width: 3px;
+    }
+    
+    #goofy
+    {
+        border-color: #8e5ea2;
+        border-width: 3px;
+    }
+    
+    #mickey
+    {
+        border-color: #37ab92;
+        border-width: 3px; 
+    }
+    
     .btn
     {
         width: 294px;
         height: 65px;
+        border-radius: 0px;
     }
 
     #myChart2
     {
-
     }
     
     #resultDiv
@@ -109,6 +127,11 @@ ORDER BY DisneyCharacterID;");
     {
         margin-top:25px;
         font-size:18px;
+    }
+    
+    #characters
+    {
+        margin-bottom:25px;
     }
 </style>
 
@@ -128,27 +151,30 @@ ORDER BY DisneyCharacterID;");
 
 <div class="container">
     
+<div ID="characters">
     
 <div id="donald" class="characterDiv">
     <img src="images/<?php echo($results[2][0]); ?>" alt="Donald Duck">
     <h3><?php echo($results[1][0]); ?></h3>
     <br>
-    <button id="addDonald" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Donald</button>
+    <button style="background-color:#3988bb;" id="addDonald" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Donald</button>
+</div>
+    
+<div id="goofy" class="characterDiv">
+    <img src="images/<?php echo($results[2][2]); ?>" alt="Goofy Goof">
+    <h3><?php echo($results[1][2]); ?></h3>
+    <br>
+    <button style="background-color:#8e5ea2;" id="addGoofy" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Goofy</button>
 </div>
 
 <div id="mickey" class="characterDiv">
     <img src="images/<?php echo($results[2][1]); ?>" alt="Mickey Mouse">
     <h3><?php echo($results[1][1]); ?></h3>
     <br>
-    <button id="addMickey" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Mickey</button>
+    <button style="background-color:#37ab92;" id="addMickey" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Mickey</button>
 </div>
 
-<div id="goofy" class="characterDiv">
-    <img src="images/<?php echo($results[2][2]); ?>" alt="Goofy Goof">
-    <h3><?php echo($results[1][2]); ?></h3>
-    <br>
-    <button id="addGoofy" type="button" class="btn btn-primary" onclick="displayChart()" >Vote for Goofy</button>
-</div>
+</div><!-- /characters -->
     
 <div id="JSchart">
 
@@ -174,6 +200,38 @@ ORDER BY DisneyCharacterID;");
 </div><!-- /container -->
 
 <script>   
+    /*
+            function displayChart(){
+        
+        $.get ("getVotes.php", function (data) {
+           votes = JSON.parse(data);
+           //undef = JSON.parse(undefined)
+
+           console.log (votes);
+           
+           
+           new Chart(document.getElementById("myChart2"), {
+                type: 'bar',
+                data: {
+                  labels: votes[0],
+                  datasets: [
+                    {
+                      label: "Number of Votes",
+                      backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+                      data: votes[1],
+                      borderWidth: 10
+                    }
+                  ]
+                },
+
+            });
+           
+        });
+        
+    }// /displayChart()
+    */
+    
+    
 //----------- Donald
 (function() {
   var httpRequest;
@@ -270,6 +328,8 @@ ORDER BY DisneyCharacterID;");
     
     $(document).ready(function () {
         
+    //function displayChart(){
+        
         $.get ("getVotes.php", function (data) {
            votes = JSON.parse(data);
            //undef = JSON.parse(undefined)
@@ -295,7 +355,11 @@ ORDER BY DisneyCharacterID;");
            
         });
         
+    //}// /displayChart()
         
         
     })
+    
+    
+
  </script>
